@@ -17,36 +17,31 @@ import UserContext, { UserDataContext } from "./context/user";
 import Notes from "./screens/Notes";
 
 const Stack = createNativeStackNavigator();
-const AppStack = createNativeStackNavigator()
+const AppStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 authStack = createNativeStackNavigator();
 export default function Main() {
   const [user, setUser] = useState(null);
-  const {_, setUserData} = useContext(UserDataContext)
+  const { _, setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
     onAuthStateChanged(AUTH, async (user) => {
       setUser(user);
       if (user) {
         let data = await exercisesServices.getUserData(user.uid);
-        setUserData(data)
+        setUserData(data);
       }
     });
   }, []);
   return (
     <NavigationContainer>
       {user ? (
-
-          <AppStack.Navigator>
-            <AppStack.Screen name="Home" component={NotesTab} />
-            <AppStack.Screen name="Notes" component={Notes} />
-          </AppStack.Navigator>
-
-
-      )
-
-      : (
+        <AppStack.Navigator>
+          <AppStack.Screen name="Home" component={NotesTab} />
+          <AppStack.Screen name="Notes" component={Notes} />
+        </AppStack.Navigator>
+      ) : (
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
@@ -59,40 +54,35 @@ export default function Main() {
   );
 }
 
-
-
-
-
-const NotesTab = () =>{
+const NotesTab = () => {
   return (
     <Tab.Navigator initialRouteName="Routines">
-            <Tab.Screen
-              name="Routines"
-              component={Routines}
-              options={{
-                headerShown: false,
-                tabBarLabel: "Routines",
-                tabBarIcon: ({ color, size, focused }) => (
-                  <Ionicons name="bookmark-outline" size={24} color={focused ? "blue" : "black"} />
-                ),
-              }}
+      <Tab.Screen
+        name="Routines"
+        component={Routines}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Routines",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name="bookmark-outline" size={24} color={focused ? "blue" : "black"} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Exercises"
+        component={Exercises}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Exercises",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="arm-flex-outline"
+              size={24}
+              color={focused ? "blue" : "black"}
             />
-            <Tab.Screen
-              name="Exercises"
-              component={Exercises}
-              options={{
-                headerShown: false,
-                tabBarLabel: "Exercises",
-                tabBarIcon: ({ color, size, focused }) => (
-                  <MaterialCommunityIcons
-                    name="arm-flex-outline"
-                    size={24}
-                    color={focused ? "blue" : "black"}
-                  />
-                ),
-              }}
-            ></Tab.Screen>
-          </Tab.Navigator>
-
-  )
-}
+          ),
+        }}
+      ></Tab.Screen>
+    </Tab.Navigator>
+  );
+};

@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { UserDataContext } from "../context/user";
 import { exercisesServices } from "../services/firestore";
@@ -44,10 +44,7 @@ export default function Notes({
     if (safeLog) alert("logged!");
     await toggleRefreshData();
     setLoading(false);
-
-
   };
-
 
   const renderLog = ({ item }) => (
     <View style={styles.logContainer}>
@@ -58,10 +55,10 @@ export default function Notes({
         Reps: <Text style={styles.logDetail}>{item.reps}</Text>
       </Text>
       <Text style={styles.timestamp}>
-        {new Date(item.timeStamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })}
+        {new Date(item.timeStamp).toLocaleDateString("en-US", { day: "numeric", month: "short" })}
       </Text>
     </View>
-);
+  );
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -84,14 +81,14 @@ export default function Notes({
           </TouchableOpacity>
         )}
         {exercise.logs.length > 0 ? (
-      <FlatList
-        data={exercise.logs.slice(0,5)}
-        renderItem={renderLog}
-        keyExtractor={(item, index) => index.toString()}
-        style={styles.flatList}
-      />
-    ) : (
-      <Text style={styles.noLogsText}>No logs</Text>
+          <FlatList
+            data={exercise.logs.slice(0, 5)}
+            renderItem={renderLog}
+            keyExtractor={(item, index) => index.toString()}
+            style={styles.flatList}
+          />
+        ) : (
+          <Text style={styles.noLogsText}>No logs</Text>
         )}
       </View>
     </TouchableWithoutFeedback>
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
   },
   logContainer: {
-    marginLeft:'10%',
+    marginLeft: "10%",
     marginBottom: 2,
     padding: 10,
     borderRadius: 5,
@@ -160,7 +157,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   logDetail: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   timestamp: {
     fontSize: 14,
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   flatList: {
-    flex:1,
+    flex: 1,
     width: "100%",
   },
   noLogsText: {
@@ -179,7 +176,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 15,
-    marginBottom:15,
+    marginBottom: 15,
     backgroundColor: "#4CAF50",
     paddingVertical: 10,
     paddingHorizontal: 15,

@@ -13,5 +13,4 @@ const dataFormatHelper = {
   },
 };
 
-
 export default dataFormatHelper;

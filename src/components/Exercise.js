@@ -1,13 +1,13 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import icons
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import icons
 
 export default function Exercise({ exercise }) {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('Notes', { exercise });
+    navigation.navigate("Notes", { exercise });
   };
 
   return (
@@ -22,20 +22,20 @@ export default function Exercise({ exercise }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FFFFFF',
+    borderColor: "#E0E0E0",
+    backgroundColor: "#FFFFFF",
   },
   iconContainer: {
     marginRight: 10,
   },
   exercise: {
     fontSize: 18,
-    fontWeight: '500',
-    color: '#4A4A4A',
+    fontWeight: "500",
+    color: "#4A4A4A",
   },
 });

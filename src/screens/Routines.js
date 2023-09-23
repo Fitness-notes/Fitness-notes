@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
-import { UserDataContext } from '../context/user';
+import React, { useContext, useEffect } from "react";
+import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from "react-native";
+import { UserDataContext } from "../context/user";
 
 export default function Exercises() {
   const { userData } = useContext(UserDataContext);
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   const renderExercise = ({ item }) => (
     <View style={styles.exerciseContainer}>
@@ -36,15 +34,15 @@ export default function Exercises() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F3F3F3',
-    alignItems: 'center',
-    paddingTop: '10%',
+    backgroundColor: "#F3F3F3",
+    alignItems: "center",
+    paddingTop: "10%",
   },
   listContainer: {
-    paddingHorizontal: '10%',
+    paddingHorizontal: "10%",
   },
   exerciseContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -60,10 +58,10 @@ const styles = StyleSheet.create({
   },
   exerciseText: {
     fontSize: 18,
-    color: '#333',
+    color: "#333",
   },
   noWorkoutsText: {
     fontSize: 20,
-    color: '#666',
+    color: "#666",
   },
 });

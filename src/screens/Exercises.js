@@ -30,24 +30,30 @@ export default function Exercises() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-
       {!userData ? (
         <ActivityIndicator size="large" color="#00BFFF" style={{ marginTop: "50%" }} />
       ) : (
-        <><View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-        <Button title="New Category" onPress={() => setCategoryModalVisible(true)} />
-        <Button title="New Exercise" onPress={() => setExerciseModalVisible(true)} />
-      </View>
-      <FlatList
-          data={exercisesData}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderCategory}
-          contentContainerStyle={{ padding: 10 }}
-        /></>
-
+        <>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
+            <Button title="New Category" onPress={() => setCategoryModalVisible(true)} />
+            <Button title="New Exercise" onPress={() => setExerciseModalVisible(true)} />
+          </View>
+          <FlatList
+            data={exercisesData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderCategory}
+            contentContainerStyle={{ padding: 10 }}
+          />
+        </>
       )}
-       <AddCategoryModal isVisible={isCategoryModalVisible} onClose={() => setCategoryModalVisible(false)} />
-      <AddExerciseModal isVisible={isExerciseModalVisible} onClose={() => setExerciseModalVisible(false)} />
+      <AddCategoryModal
+        isVisible={isCategoryModalVisible}
+        onClose={() => setCategoryModalVisible(false)}
+      />
+      <AddExerciseModal
+        isVisible={isExerciseModalVisible}
+        onClose={() => setExerciseModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }
