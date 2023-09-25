@@ -9,7 +9,7 @@ export default function Exercises() {
 
   const handleAddWorkout = () => {
 
-    console.log('Add Workout Button Pressed');
+    console.log('Add Workout');
   };
   return (
     <View style={styles.container}>
