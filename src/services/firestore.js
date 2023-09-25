@@ -93,4 +93,71 @@ export const exercisesServices = {
       return false;
     }
   },
+  async addExercise(userId, exercise) {
+    try {
+      const q = query(USER_DATA, where("id", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        let userDocId;
+        let userData;
+
+        querySnapshot.forEach((doc) => {
+          userDocId = doc.id;
+          userData = doc.data();
+        });
+
+        const exerciseExists = userData.exercises.some(e => e.name === exercise.name && e.category === exercise.category);
+        if (exerciseExists) {
+          console.error("Exercise already exists");
+          return false;
+        }
+
+        userData.exercises.push(exercise);
+
+        await setDoc(doc(USER_DATA, userDocId), userData);
+
+        console.log("Exercise added successfully");
+        return true;
+      } else {
+        console.error("User not found");
+        return false;
+      }
+    } catch (e) {
+      console.error("DB Error:", e);
+      return false;
+    }
+  },
+
+  async addWorkout(userId, workout) {
+    try {
+      const q = query(USER_DATA, where("id", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        let userDocId;
+        let userData;
+
+        querySnapshot.forEach((doc) => {
+          userDocId = doc.id;
+          userData = doc.data();
+        });
+
+        // Push the new workout to the user's workouts array
+        userData.workouts.push(workout);
+
+        // Update the user document with the new workouts array
+        await setDoc(doc(USER_DATA, userDocId), userData);
+
+        console.log("Workout added successfully");
+        return true;
+      } else {
+        console.error("User not found");
+        return false;
+      }
+    } catch (e) {
+      console.error("DB Error:", e);
+      return false;
+    }
+  },
 };

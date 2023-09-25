@@ -5,6 +5,7 @@ export const UserDataContext = React.createContext();
 export default function UserContext({ children }) {
   const [userData, setUserData] = useState(null);
 
+
   const toggleRefreshData = async () => {
     let data = await exercisesServices.getUserData(userData.id);
     if (!data) return;

@@ -1,42 +1,55 @@
 import React, { useContext, useEffect } from "react";
-import { View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import Spinner from "../components/spinner/Spinner";
+import Workout from "../components/Workout/Workout";
 import { UserDataContext } from "../context/user";
 
 export default function Exercises() {
   const { userData } = useContext(UserDataContext);
 
-  useEffect(() => {}, []);
+  const handleAddWorkout = () => {
 
-  const renderExercise = ({ item }) => (
-    <View style={styles.exerciseContainer}>
-      <Text style={styles.exerciseText}>{item.name}</Text>
-    </View>
-  );
-
+    console.log('Add Workout Button Pressed');
+  };
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {!userData ? (
-        <ActivityIndicator size="large" color="#00BFFF" />
+        <Spinner/>
       ) : userData?.workouts?.length > 0 ? (
         <FlatList
           data={userData.workouts}
           keyExtractor={(item) => item.name}
-          renderItem={renderExercise}
+          renderItem={({ item }) => <Workout workout={item} />}
           contentContainerStyle={styles.listContainer}
         />
       ) : (
         <Text style={styles.noWorkoutsText}>No workouts yet</Text>
       )}
-    </SafeAreaView>
+    <TouchableOpacity style={styles.addButton} onPress={handleAddWorkout}>
+        <Text style={styles.buttonText}>Add Workout</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F3F3",
-    alignItems: "center",
-    paddingTop: "10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   listContainer: {
     paddingHorizontal: "10%",

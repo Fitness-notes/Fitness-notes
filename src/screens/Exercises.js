@@ -1,14 +1,16 @@
 import React, { useContext, useState, useMemo } from "react";
-import { View, Text, SafeAreaView, ActivityIndicator, FlatList, Button } from "react-native";
-import CategoryDropdown from "../components/CategoryDropdown";
-import Exercise from "../components/Exercise";
+import { View, Text, SafeAreaView, FlatList, Button } from "react-native";
+import CategoryDropdown from "../components/categoryDropdown/CategoryDropdown";
+import Exercise from "../components/excersise/Exercise";
 import { UserDataContext } from "../context/user";
 import dataFormatHelper from "../helpers/dataFormat";
-import AddCategoryModal from "../components/AddCategoryModal";
-import AddExerciseModal from "../components/AddExerciseModal";
+import AddCategoryModal from "../components/addCategoryModal/AddCategoryModal";
+import AddExerciseModal from "../components/addExerciseModal/AddExerciseModal";
+import ActivityIndicator from "../components/spinner/Spinner";
+import Spinner from "../components/spinner/Spinner";
 export default function Exercises() {
   const { userData } = useContext(UserDataContext);
-  const [isCategoryModalVisible, setCategoryModalVisible] = useState(false);
+  // const [isCategoryModalVisible, setCategoryModalVisible] = useState(false);
   const [isExerciseModalVisible, setExerciseModalVisible] = useState(false);
 
   const exercisesData = useMemo(() => {
@@ -31,11 +33,11 @@ export default function Exercises() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {!userData ? (
-        <ActivityIndicator size="large" color="#00BFFF" style={{ marginTop: "50%" }} />
+        <Spinner/>
       ) : (
         <>
           <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
-            <Button title="New Category" onPress={() => setCategoryModalVisible(true)} />
+            {/* <Button title="New Category" onPress={() => setCategoryModalVisible(true)} /> */}
             <Button title="New Exercise" onPress={() => setExerciseModalVisible(true)} />
           </View>
           <FlatList
@@ -46,10 +48,10 @@ export default function Exercises() {
           />
         </>
       )}
-      <AddCategoryModal
+      {/* <AddCategoryModal
         isVisible={isCategoryModalVisible}
         onClose={() => setCategoryModalVisible(false)}
-      />
+      /> */}
       <AddExerciseModal
         isVisible={isExerciseModalVisible}
         onClose={() => setExerciseModalVisible(false)}

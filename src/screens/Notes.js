@@ -7,11 +7,11 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
+
   FlatList,
-  SafeAreaView,
-  ScrollView,
+
 } from "react-native";
+import Spinner from "../components/spinner/Spinner";
 import { UserDataContext } from "../context/user";
 import { exercisesServices } from "../services/firestore";
 
@@ -74,7 +74,7 @@ export default function Notes({
           onChangeText={(text) => setLog({ ...log, reps: text })}
         />
         {loading ? (
-          <ActivityIndicator size="large" color="#00BFFF" style={{ marginTop: "50%" }} />
+          <Spinner/>
         ) : (
           <TouchableOpacity style={styles.button} onPress={handleSaveLog}>
             <Text style={styles.buttonText}>Save Log</Text>

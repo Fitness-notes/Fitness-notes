@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
   SafeAreaView,
   Text,
   TextInput,
@@ -11,6 +10,7 @@ import {
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { AUTH } from "../../firebase.config";
 import { exercisesServices } from "../services/firestore";
+import Spinner from "../components/spinner/Spinner";
 
 export default function Login() {
   const [email, setEmail] = useState("dmafioly@gmail.com");
@@ -79,7 +79,7 @@ export default function Login() {
     </View>
 
     {loading ? (
-      <ActivityIndicator size="large" color="#00BFFF" />
+      <Spinner/>
     ) : (
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={login}>
