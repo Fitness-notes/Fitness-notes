@@ -5,16 +5,19 @@ import { StatusBar } from "expo-status-bar";
 import { onAuthStateChanged } from "firebase/auth";
 import { StyleSheet, Text, View } from "react-native";
 import { AUTH } from "../firebase.config";
-import Login from "./screens/Login";
-import Routines from "./screens/Routines";
+import Login from "./screens/Login/Login";
+import Routines from "./screens/Routines/Routines";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Exercises from "./screens/Exercises";
-import { Ionicons } from "@expo/vector-icons";
+import Exercises from "./screens/Exercises/Exercises";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { exercisesServices } from "./services/firestore";
-import UserContext, { UserDataContext } from "./context/user";
-import Notes from "./screens/Notes";
+import { UserDataContext } from "./context/user";
+import Notes from "./screens/Notes/Notes";
+import CreateWorkout from "./screens/CreateWorkout/CreateWorkout";
+import { NotesTab } from "./navigaton/NotesTab";
+import WorkoutDetail from "./screens/WorkoutDetail/WorkoutDetail";
 
 const Stack = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
@@ -23,7 +26,7 @@ const Tab = createBottomTabNavigator();
 authStack = createNativeStackNavigator();
 export default function Main() {
   const [user, setUser] = useState(null);
-  const { _, setUserData } = useContext(UserDataContext);
+  const { userData, setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
     onAuthStateChanged(AUTH, async (user) => {
@@ -40,6 +43,8 @@ export default function Main() {
         <AppStack.Navigator>
           <AppStack.Screen name="Home" component={NotesTab} />
           <AppStack.Screen name="Notes" component={Notes} />
+          <AppStack.Screen name="Create-workout" component={CreateWorkout}/>
+          <Stack.Screen name="WorkoutDetail" component={WorkoutDetail} />
         </AppStack.Navigator>
       ) : (
         <Stack.Navigator initialRouteName="Login">
@@ -54,35 +59,3 @@ export default function Main() {
   );
 }
 
-const NotesTab = () => {
-  return (
-    <Tab.Navigator initialRouteName="Routines">
-      <Tab.Screen
-        name="Routines"
-        component={Routines}
-        options={{
-          headerShown: false,
-          tabBarLabel: "Routines",
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name="bookmark-outline" size={24} color={focused ? "blue" : "black"} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Exercises"
-        component={Exercises}
-        options={{
-          headerShown: false,
-          tabBarLabel: "Exercises",
-          tabBarIcon: ({ color, size, focused }) => (
-            <MaterialCommunityIcons
-              name="arm-flex-outline"
-              size={24}
-              color={focused ? "blue" : "black"}
-            />
-          ),
-        }}
-      ></Tab.Screen>
-    </Tab.Navigator>
-  );
-};

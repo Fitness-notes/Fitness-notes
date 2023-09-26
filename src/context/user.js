@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { exercisesServices } from "../services/firestore";
+import dataFormatHelper from "../helpers/dataFormat";
 
 export const UserDataContext = React.createContext();
 export default function UserContext({ children }) {
@@ -11,8 +12,17 @@ export default function UserContext({ children }) {
     if (!data) return;
     setUserData(data);
   };
+  const formatedExercises = useMemo(() => {
+    if (!userData) return [];
+    let formatObj =  dataFormatHelper.groupByCategory(userData.exercises);
+    return Object.keys(formatObj).map((key) => ({
+      category: key,
+      exercises: formatObj[key],
+    }));
+  }, [userData]);
+
   return (
-    <UserDataContext.Provider value={{ userData, setUserData, toggleRefreshData }}>
+    <UserDataContext.Provider value={{ userData, setUserData, toggleRefreshData, formatedExercises }}>
       {children}
     </UserDataContext.Provider>
   );

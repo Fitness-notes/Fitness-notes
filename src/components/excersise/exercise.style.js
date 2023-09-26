@@ -19,4 +19,7 @@ export const styles = StyleSheet.create({
       color: "#4A4A4A",
 
     },
+    selectedContainer: {
+      backgroundColor: "#ddd",
+    },
   });
