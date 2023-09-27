@@ -29,13 +29,33 @@ export default function Main() {
   const { userData, setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
-    onAuthStateChanged(AUTH, async (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(AUTH, async (user) => {
       if (user) {
-        let data = await exercisesServices.getUserData(user.uid);
-        setUserData(data);
+        let data = null;
+        let attempts = 0;
+        while (!data && attempts < 5) {//Retry
+          try {
+            data = await exercisesServices.getUserData(user.uid);
+          } catch (error) {
+            console.error("Error fetching user data", error);
+          }
+
+          if (!data) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+
+          attempts++;
+        }
+
+        if (data) {
+          setUser(user);
+          setUserData(data);
+        } else {
+          console.error("Failed to fetch user data after 5 attempts");
+        }
       }
     });
+    return () => unsubscribe();
   }, []);
   return (
     <NavigationContainer>

@@ -42,13 +42,11 @@ export default function Login() {
   const signUp = async () => {
     setLoading(true);
     try {
-      let response = await createUserWithEmailAndPassword(auth, email, password);
+      let userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      let user = userCredential.user;
 
-      // console.log(response._tokenResponse.idToken)
-      // console.log(response.user.uid)
-      await exercisesServices.initUser(response.user);
-      // await AsyncStorage.setItem('jwtToken',response._tokenResponse.idToke )
-      // console.log('my storage', await AsyncStorage.getItem('jwtToken'))
+      // Initialize user data before setting the auth state
+      await exercisesServices.initUser(user);
 
       alert("User Created!");
     } catch (error) {
