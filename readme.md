@@ -6,13 +6,13 @@ Welcome to "My Fitness Notes", your personalized fitness tracker. Built with Exp
 
 - **Firebase Authentication**: Securely sign up and log in using Firebase.
 - **Exercise Logging**: Keep track of your individual exercises, weights, and reps.
-![Logging and exercise](./assets/log.jpeg)
 - **Exercise Categorization**: Organize your exercises into categories like "Chest", "Abs", "Back", and more.
-![Exercises](./assets/exercises.jpeg)
 - **Workout Creation**: Combine various exercises to create a custom workout for the day.
-![Workouts](./assets/workout.jpeg)
 - **Data Storage with Firestore**: All your exercise and workout data is securely stored in Firestore.
 
+![Logging and exercise](./assets/log.jpeg)
+![Exercises](./assets/exercises.jpeg)
+![Workouts](./assets/workout.jpeg)
 ## Getting Started 🚀
 
 ### Prerequisites
